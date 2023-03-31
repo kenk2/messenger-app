@@ -1,4 +1,4 @@
-import MessageDashboard from "@/components/messageDashboard";
+import MessageDashboard from "@components/messageDashboard";
 
 export default function Home() {
   const newDate = new Date();
