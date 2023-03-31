@@ -1,7 +1,6 @@
 import React from "react";
 import {
   AppBar,
-  Avatar,
   Box,
   Button,
   TextField,
@@ -10,12 +9,10 @@ import {
 } from "@mui/material";
 import useMessages from "@customHooks/useMessages";
 
-type IMessageDashboard = {
-  date: Date;
-};
+import UserMessage from "./UserMessage";
 
-export default function MessageDashboard({ date }: IMessageDashboard) {
-  const { messages } = useMessages(date);
+export default function MessageDashboard() {
+  const { messages } = useMessages();
 
   return (
     <Box marginBottom="75px">
@@ -26,15 +23,7 @@ export default function MessageDashboard({ date }: IMessageDashboard) {
       </AppBar>
       <Box sx={{ overflowX: "scroll" }} marginTop="8px">
         {messages.map((message) => (
-          <Box
-            key={message.id}
-            marginBottom="8px"
-            border="1px solid black"
-            padding="8px"
-          >
-            <Avatar>{message.name}</Avatar>
-            {message.message}
-          </Box>
+          <UserMessage message={message} key={message.id} />
         ))}
       </Box>
       <Box

@@ -1,6 +1,6 @@
 export type IMessage = {
   name: string;
-  message: string;
+  text: string;
   id: number;
   timestamp: Date;
 };
