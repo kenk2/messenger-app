@@ -1,36 +1,21 @@
-import React, { useMemo, useRef } from "react";
+import React from "react";
 import {
   AppBar,
   Avatar,
   Box,
   Button,
-  Container,
   TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { faker } from "@faker-js/faker";
+import useMessages from "@customHooks/useMessages";
 
 type IMessageDashboard = {
   date: Date;
 };
 
-type IMessage = {
-  name: string;
-  message: string;
-  id: number;
-};
-
 export default function MessageDashboard({ date }: IMessageDashboard) {
-  const messages: IMessage[] = useMemo(
-    () =>
-      new Array(5).fill(0).map(() => ({
-        name: faker.internet.userName(),
-        message: faker.lorem.sentences(),
-        id: faker.datatype.number(),
-      })),
-    []
-  );
+  const { messages } = useMessages(date);
 
   return (
     <Box marginBottom="75px">
