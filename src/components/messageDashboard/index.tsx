@@ -21,7 +21,7 @@ export default function MessageDashboard() {
           <Typography>Messenger App</Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ overflowX: "scroll" }} marginTop="8px">
+      <Box sx={{ overflowX: "scroll", marginTop: "8px" }}>
         {messages.map((message) => (
           <UserMessage message={message} key={message.id} />
         ))}
@@ -44,7 +44,6 @@ export default function MessageDashboard() {
           placeholder="Enter a message..."
           multiline
           fullWidth
-          margin="normal"
           color="primary"
           sx={{
             margin: 0,

@@ -6,12 +6,14 @@ type IUserMessage = {
   message: IMessage;
 };
 
-export default function Message(props: IUserMessage) {
+export default function UserMessage(props: IUserMessage) {
   const {
     message: { text, name, timestamp },
   } = props;
   return (
-    <Box marginBottom="8px" border="1px solid black" padding="8px">
+    <Box
+      sx={{ marginBottom: "8px", border: "1px solid black", padding: "8px" }}
+    >
       <Box
         sx={{
           display: "flex",
