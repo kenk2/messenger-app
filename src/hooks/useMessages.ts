@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { faker } from "@faker-js/faker";
 import { IMessage } from "@customTypes/messages";
 
 import type { Socket as ClientSocket } from "socket.io-client";
@@ -29,9 +28,9 @@ export default function useMessages(socket?: ClientSocket) {
     setMessages([
       ...messages,
       {
-        messageId: faker.datatype.number(),
-        userName: faker.internet.userName(),
-        userId: faker.datatype.number(),
+        messageId: payload.messageId,
+        userName: payload.userName,
+        userId: payload.userId,
         text: payload.text,
         createdAt: new Date(payload.createdAt),
       },

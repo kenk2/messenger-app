@@ -11,24 +11,33 @@ import {
 import useMessages from "@customHooks/useMessages";
 import useSocket from "@customHooks/useSocket";
 import { SOCKET_EVENTS } from "@customTypes/socket";
+import { User } from "@customTypes/users";
+import useUsers from "@customHooks/useUser";
 
 import UserMessage from "./UserMessage";
 
-export default function MessageDashboard() {
+type IMessageDashboard = {
+  user: User | undefined;
+};
+
+export default function MessageDashboard(props: IMessageDashboard) {
+  const { user } = props;
+
   const { socket } = useSocket();
   const { messages } = useMessages(socket);
+  const { data: users } = useUsers();
   const [messageText, setMessageText] = useState<string>("");
 
   const handleSubmit = useCallback(
     (evt: React.FormEvent<HTMLButtonElement>) => {
       evt.preventDefault();
       socket?.emit(SOCKET_EVENTS.USER_MESSAGE, {
-        userId: 1,
+        userId: user?.userId,
         text: messageText,
       });
       setMessageText("");
     },
-    [messageText, socket]
+    [messageText, socket, user]
   );
 
   return (
@@ -38,11 +47,17 @@ export default function MessageDashboard() {
           <Typography>Messenger App</Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ overflowX: "scroll", marginTop: "8px" }}>
-        {messages.map((message) => (
-          <UserMessage message={message} key={message.messageId} />
-        ))}
-      </Box>
+      {users && (
+        <Box sx={{ overflowX: "scroll", marginTop: "8px" }}>
+          {messages.map((message) => (
+            <UserMessage
+              message={message}
+              user={users.find((u) => u.userId === message.userId)!}
+              key={message.messageId}
+            />
+          ))}
+        </Box>
+      )}
       <Box
         sx={{
           height: "40px",
