@@ -8,7 +8,7 @@ type IUserMessage = {
 
 export default function UserMessage(props: IUserMessage) {
   const {
-    message: { text, name, timestamp },
+    message: { text, userName, createdAt },
   } = props;
   return (
     <Box
@@ -21,10 +21,10 @@ export default function UserMessage(props: IUserMessage) {
           alignItems: "center",
         }}
       >
-        <Avatar>{name}</Avatar>
-        <Typography sx={{ marginLeft: "8px" }}>{name}</Typography>
+        <Avatar>{userName}</Avatar>
+        <Typography sx={{ marginLeft: "8px" }}>{userName}</Typography>
         <Typography sx={{ marginLeft: "auto" }}>
-          {timestamp.toLocaleString()}
+          {new Date(createdAt).toLocaleString()}
         </Typography>
       </Box>
       {text}

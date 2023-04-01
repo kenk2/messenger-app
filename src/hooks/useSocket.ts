@@ -4,18 +4,21 @@ import type { Socket as ClientSocket } from "socket.io-client";
 
 export default function useSocket() {
   const [socket, setSocket] = useState<ClientSocket | undefined>();
-  async function startSocket() {
-    await fetch("/api/socket");
-    const server = io();
-    server.on("connect", () => {
-      console.log("User connection to client acknowledged");
-    });
-
-    setSocket(server);
-  }
 
   useEffect(() => {
+    const server = io();
+    async function startSocket() {
+      await fetch("/api/socket");
+      server.on("connect", () => {
+        console.log("User connection to client acknowledged");
+      });
+      setSocket(server);
+    }
     startSocket();
+
+    return () => {
+      server.disconnect();
+    };
   }, []);
 
   return { socket };

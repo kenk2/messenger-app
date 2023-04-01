@@ -22,7 +22,10 @@ export default function MessageDashboard() {
   const handleSubmit = useCallback(
     (evt: React.FormEvent<HTMLButtonElement>) => {
       evt.preventDefault();
-      socket?.emit(SOCKET_EVENTS.USER_MESSAGE, messageText);
+      socket?.emit(SOCKET_EVENTS.USER_MESSAGE, {
+        userId: 1,
+        text: messageText,
+      });
       setMessageText("");
     },
     [messageText, socket]
@@ -37,7 +40,7 @@ export default function MessageDashboard() {
       </AppBar>
       <Box sx={{ overflowX: "scroll", marginTop: "8px" }}>
         {messages.map((message) => (
-          <UserMessage message={message} key={message.id} />
+          <UserMessage message={message} key={message.messageId} />
         ))}
       </Box>
       <Box

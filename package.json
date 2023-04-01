@@ -11,7 +11,10 @@
     "lint:fix": "next lint --fix",
     "prettier": "prettier **/*.{md,css,ts,tsx} --check",
     "prettier:fix": "prettier **/*.{md,css,ts,tsx} --write",
-    "migrate": "node-pg-migrate"
+    "migrate": "node-pg-migrate",
+    "migrate:up": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down",
+    "migrate:downup": "node-pg-migrate down && node-pg-migrate up"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -21,6 +24,9 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.31",
     "@types/react-dom": "18.0.11",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
     "next": "13.2.4",
     "node-pg-migrate": "^6.2.2",
     "pg": "^8.10.0",

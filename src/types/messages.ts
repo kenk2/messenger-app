@@ -1,6 +1,7 @@
 export type IMessage = {
-  name: string;
+  userId: number;
+  userName: string;
+  messageId: number;
   text: string;
-  id: number;
-  timestamp: Date;
+  createdAt: Date;
 };
