@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import {
   AppBar,
   Box,
@@ -7,12 +7,26 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+
 import useMessages from "@customHooks/useMessages";
+import useSocket from "@customHooks/useSocket";
+import { SOCKET_EVENTS } from "@customTypes/socket";
 
 import UserMessage from "./UserMessage";
 
 export default function MessageDashboard() {
-  const { messages } = useMessages();
+  const { socket } = useSocket();
+  const { messages } = useMessages(socket);
+  const [messageText, setMessageText] = useState<string>("");
+
+  const handleSubmit = useCallback(
+    (evt: React.FormEvent<HTMLButtonElement>) => {
+      evt.preventDefault();
+      socket?.emit(SOCKET_EVENTS.USER_MESSAGE, messageText);
+      setMessageText("");
+    },
+    [messageText, socket]
+  );
 
   return (
     <Box marginBottom="75px">
@@ -49,8 +63,16 @@ export default function MessageDashboard() {
             margin: 0,
             backgroundColor: "white",
           }}
+          value={messageText}
+          onChange={(evt) => setMessageText(evt.target.value)}
         />
-        <Button color="success" variant="contained" sx={{ marginLeft: "8px" }}>
+        <Button
+          color="success"
+          variant="contained"
+          sx={{ marginLeft: "8px" }}
+          onClick={handleSubmit}
+          disabled={messageText.length === 0}
+        >
           Submit
         </Button>
       </Box>
