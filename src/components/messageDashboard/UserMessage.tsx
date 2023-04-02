@@ -1,14 +1,17 @@
+import { User } from "@customTypes/users";
 import { IMessage } from "@customTypes/messages";
 import { Box, Avatar, Typography } from "@mui/material";
 import React from "react";
 
 type IUserMessage = {
   message: IMessage;
+  user: User;
 };
 
 export default function UserMessage(props: IUserMessage) {
   const {
-    message: { text, userName, createdAt },
+    message: { text, createdAt },
+    user,
   } = props;
   return (
     <Box
@@ -21,8 +24,8 @@ export default function UserMessage(props: IUserMessage) {
           alignItems: "center",
         }}
       >
-        <Avatar>{userName}</Avatar>
-        <Typography sx={{ marginLeft: "8px" }}>{userName}</Typography>
+        <Avatar src={user.avatar} />
+        <Typography sx={{ marginLeft: "8px" }}>{user.userName}</Typography>
         <Typography sx={{ marginLeft: "auto" }}>
           {new Date(createdAt).toLocaleString()}
         </Typography>

@@ -10,6 +10,7 @@ export default function useSocket() {
     async function startSocket() {
       await fetch("/api/socket");
       server.on("connect", () => {
+        // eslint-disable-next-line no-console
         console.log("User connection to client acknowledged");
       });
       setSocket(server);

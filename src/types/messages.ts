@@ -5,3 +5,8 @@ export type IMessage = {
   text: string;
   createdAt: Date;
 };
+
+export type IAddMessage = {
+  userId: number;
+  text: string;
+};
