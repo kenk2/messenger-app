@@ -9,6 +9,9 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "rules": {
+    "react/require-default-props": "off"
+  },
   "env": {
     "jest": true
   }
