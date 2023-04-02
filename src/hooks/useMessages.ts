@@ -3,17 +3,10 @@ import { IAddMessage, IMessage } from "@customTypes/messages";
 
 import type { Socket as ClientSocket } from "socket.io-client";
 import { SOCKET_EVENTS } from "@customTypes/socket";
-import { addDays, format } from "date-fns";
 import { useMutation } from "react-query";
 
-function getPastMessages(
-  timestamp: Date,
-  pageSize: number = 50
-): Promise<IMessage[]> {
-  const formattedDate = format(addDays(timestamp, 2), "yyyy-MM-dd");
-  return fetch(
-    `/api/message/messages?pageSize=${pageSize}&timestamp=${formattedDate}`
-  )
+function getPastMessages(pageSize: number = 50): Promise<IMessage[]> {
+  return fetch(`/api/message/messages?pageSize=${pageSize}`)
     .then((res) => res.json())
     .then((res) => res.reverse());
 }
@@ -31,7 +24,7 @@ export default function useMessages(socket?: ClientSocket) {
   const [messages, setMessages] = useState<IMessage[]>([]);
 
   useEffect(() => {
-    getPastMessages(new Date()).then((result) => {
+    getPastMessages().then((result) => {
       setMessages(result);
     });
   }, []);
@@ -40,10 +33,7 @@ export default function useMessages(socket?: ClientSocket) {
     setMessages([
       ...messages,
       {
-        messageId: payload.messageId,
-        userName: payload.userName,
-        userId: payload.userId,
-        text: payload.text,
+        ...payload,
         createdAt: new Date(payload.createdAt),
       },
     ]);

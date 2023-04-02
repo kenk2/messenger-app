@@ -8,10 +8,9 @@ export default async function handler(
   res: NextApiResponse<IMessage[] | string>
 ) {
   const client = await getClient();
-  const { pageSize, timestamp } = req.query;
+  const { pageSize } = req.query;
   const queryCommand = `
     SELECT * FROM "messages"
-    WHERE created_at < '${timestamp}'
     ORDER BY message_id DESC
     LIMIT(${pageSize});
     `;
