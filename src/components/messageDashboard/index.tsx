@@ -10,34 +10,36 @@ import {
 
 import useMessages from "@customHooks/useMessages";
 import useSocket from "@customHooks/useSocket";
-import { SOCKET_EVENTS } from "@customTypes/socket";
 import { User } from "@customTypes/users";
 import useUsers from "@customHooks/useUser";
 
 import UserMessage from "./UserMessage";
 
 type IMessageDashboard = {
-  user: User | undefined;
+  user: User;
 };
 
 export default function MessageDashboard(props: IMessageDashboard) {
   const { user } = props;
 
   const { socket } = useSocket();
-  const { messages } = useMessages(socket);
+  const {
+    messages,
+    mutate: { mutate: addMessage },
+  } = useMessages(socket);
   const { data: users } = useUsers();
   const [messageText, setMessageText] = useState<string>("");
 
   const handleSubmit = useCallback(
-    (evt: React.FormEvent<HTMLButtonElement>) => {
+    async (evt: React.FormEvent<HTMLButtonElement>) => {
       evt.preventDefault();
-      socket?.emit(SOCKET_EVENTS.USER_MESSAGE, {
-        userId: user?.userId,
+      await addMessage({
+        userId: user.userId,
         text: messageText,
       });
       setMessageText("");
     },
-    [messageText, socket, user]
+    [messageText, user, addMessage]
   );
 
   return (
