@@ -12,6 +12,7 @@ export default async function handler(
   const queryCommand = `
     SELECT * FROM "messages"
     WHERE created_at < '${timestamp}'
+    ORDER BY message_id DESC
     LIMIT(${pageSize});
     `;
 

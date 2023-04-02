@@ -13,7 +13,9 @@ function getPastMessages(
   const formattedDate = format(addDays(timestamp, 2), "yyyy-MM-dd");
   return fetch(
     `/api/message/messages?pageSize=${pageSize}&timestamp=${formattedDate}`
-  ).then((res) => res.json());
+  )
+    .then((res) => res.json())
+    .then((res) => res.reverse());
 }
 
 function addMessage(message: IAddMessage): Promise<IMessage> {
@@ -34,12 +36,6 @@ export default function useMessages(socket?: ClientSocket) {
     });
   }, []);
 
-  const mutate = useMutation("post-message", addMessage, {
-    onSuccess: (result: IMessage) => {
-      setMessages([...messages, result]);
-    },
-  });
-
   socket?.on(SOCKET_EVENTS.NEW_MESSAGE_UPDATE, (payload: IMessage) => {
     setMessages([
       ...messages,
@@ -52,6 +48,8 @@ export default function useMessages(socket?: ClientSocket) {
       },
     ]);
   });
+
+  const mutate = useMutation("post-message", addMessage);
 
   return { messages, mutate };
 }
