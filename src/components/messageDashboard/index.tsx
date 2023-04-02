@@ -28,6 +28,10 @@ export default function MessageDashboard(props: IMessageDashboard) {
       >
         <CircularProgress color="inherit" />
         <Typography>Connecting to the server. Please wait...</Typography>
+        <Typography>
+          If you are stuck at this screen, you can refresh or come back later to
+          fix any issues with long loading times.
+        </Typography>
       </Backdrop>
     );
   }
