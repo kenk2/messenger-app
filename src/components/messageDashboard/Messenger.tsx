@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import useMessages from "@customHooks/useMessages";
+import { useAddMessage } from "@customHooks/useMessages";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import { User } from "@customTypes/users";
@@ -13,9 +13,7 @@ type IMessenger = {
 export default function Messenger(props: IMessenger) {
   const { user } = props;
   const [messageText, setMessageText] = useState<string>("");
-  const {
-    mutate: { mutate: addMessage, isLoading: isAddingMessage },
-  } = useMessages();
+  const { mutate: addMessage, isLoading: isAddingMessage } = useAddMessage();
 
   const handleSubmit = useCallback(async () => {
     if (!messageText) {

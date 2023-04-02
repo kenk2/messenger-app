@@ -5,7 +5,7 @@ import React from "react";
 
 type IUserMessage = {
   message: IMessage;
-  user: User;
+  user?: User;
 };
 
 export default function UserMessage(props: IUserMessage) {
@@ -24,13 +24,15 @@ export default function UserMessage(props: IUserMessage) {
           alignItems: "center",
         }}
       >
-        <Avatar src={user.avatar} />
-        <Typography sx={{ marginLeft: "8px" }}>{user.userName}</Typography>
+        <Avatar src={user?.avatar || ""} />
+        <Typography sx={{ marginLeft: "8px" }}>
+          {user?.userName || "Unknown User"}
+        </Typography>
         <Typography sx={{ marginLeft: "auto" }}>
           {new Date(createdAt).toLocaleString()}
         </Typography>
       </Box>
-      {text}
+      <Box>{text}</Box>
     </Box>
   );
 }

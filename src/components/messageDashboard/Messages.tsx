@@ -17,7 +17,7 @@ export default function Messages(props: IMessages) {
       {messages.map((message) => (
         <UserMessage
           message={message}
-          user={users.find((u) => u.userId === message.userId)!}
+          user={users.find((u) => u.userId === message.userId)}
           key={message.messageId}
         />
       ))}

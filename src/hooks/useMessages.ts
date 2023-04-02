@@ -17,13 +17,13 @@ function getPastMessages(pageSize: number = 50): Promise<IMessage[]> {
     );
 }
 
-function addMessage(message: IAddMessage): Promise<IMessage> {
+function addMessage(message: IAddMessage) {
   return fetch("/api/message", {
     method: "POST",
     body: JSON.stringify({
       message,
     }),
-  }).then((res) => res.json());
+  });
 }
 
 export default function useMessages(socket?: ClientSocket) {
@@ -46,7 +46,9 @@ export default function useMessages(socket?: ClientSocket) {
     ]);
   });
 
-  const mutate = useMutation("post-message", addMessage);
+  return { messages };
+}
 
-  return { messages, mutate };
+export function useAddMessage() {
+  return useMutation("post-message", addMessage);
 }
