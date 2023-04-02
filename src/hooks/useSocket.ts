@@ -33,7 +33,6 @@ export default function useSocket() {
       server.disconnect();
       // eslint-disable-next-line no-console
       console.log("User has disconnected from the server.");
-      setSocket(undefined);
     };
   }, []);
 

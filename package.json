@@ -12,9 +12,9 @@
     "prettier": "prettier **/*.{md,css,ts,tsx} --check",
     "prettier:fix": "prettier **/*.{md,css,ts,tsx} --write",
     "migrate": "node-pg-migrate",
-    "migrate:up": "node-pg-migrate up",
-    "migrate:down": "node-pg-migrate down",
-    "migrate:downup": "node-pg-migrate down && node-pg-migrate up"
+    "migrate:up": "node-pg-migrate up 5",
+    "migrate:down": "node-pg-migrate down 5",
+    "migrate:downup": "node-pg-migrate down 5 && node-pg-migrate up 5"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
