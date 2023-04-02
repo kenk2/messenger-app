@@ -7,6 +7,7 @@ export default function handler(req: NextApiRequest, res: NextSocketResponse) {
     const io = new Server(res.socket.server);
 
     io.on("connection", () => {
+      // eslint-disable-next-line no-console
       console.log("A user has connected to the socket.");
     });
     res.socket.server.io = io;

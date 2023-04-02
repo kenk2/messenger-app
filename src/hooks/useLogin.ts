@@ -34,5 +34,10 @@ export default function useLogin() {
       setExistingUser(user);
     },
   });
-  return { existingUser, query };
+
+  const logout = () => {
+    window.localStorage.clear();
+    window.location.reload();
+  };
+  return { existingUser, query, logout };
 }
